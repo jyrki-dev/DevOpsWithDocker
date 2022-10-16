@@ -1,0 +1,16 @@
+$ docker run --name simple-alpine -d -it devopsdockeruh/simple-web-service:alpine
+fa64385fb03c318a626047eab863ab5e66640a989a01d02270b5d150a05258bb
+$ docker exec -it simple-alpine sh
+$ /usr/src/app # tail ./text.log
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+2022-10-16 16:47:01 +0000 UTC
+2022-10-16 16:47:03 +0000 UTC
+2022-10-16 16:47:05 +0000 UTC
+2022-10-16 16:47:07 +0000 UTC
+2022-10-16 16:47:09 +0000 UTC
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+2022-10-16 16:47:11 +0000 UTC
+2022-10-16 16:47:14 +0000 UTC
+2022-10-16 16:47:16 +0000 UTC
+$ /usr/src/app # exit
+$ docker kill simple-alpine
