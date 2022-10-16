@@ -68,7 +68,7 @@ The build process creates multiple layers and intermediate containers during the
 
 The intermediate containers are containers created from the image in which the command is executed. Then the changed state is stored into an image.
 
-## Operating inside containers
+## Operating with containers
 
 You can copy files from your local filesystem to a running container with the command `docker cp <local-file-path> <container>:<directory>`.
 
@@ -81,3 +81,8 @@ To save the made changes (to a new image), run `docker commit <container> <image
 Volumes can be mounted as a shared directory from the local machine to a container through `docker run -v "<local-directory>:<container-directory>"` command.
 
 Volume can be either a directory or shared file!
+
+### Ports
+
+Expose a port from a container by adding `EXPOSE <port>[/<protocol>]` to it's Dockerfile.
+Publish a port by command `docker run -p <host-port>:<container-port>[:/<protocol>]`.
