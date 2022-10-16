@@ -41,13 +41,34 @@ The `-t` flag creates a pseudo-tty, but it needs to be made interactive with the
 
 To see the output of logs of a container, run `docker logs -f looper` (the `-f / --follow` flag allows you to monitor the log output in realtime).
 
-## Building images
+## Dockerfile
+
+Images are constructed from `Dockerfiles`, which are a series of instrunctions and commands that are run in sequence.
+
+### ENTRYPOINT vs CMD
+
+For passing executable commands to a container, there are two main fields in a Dockerfile: `ENTRYPOINT` and `CMD`.`ENTRYPOINT` is used to define the main executable (think of it as a prefix for the command to run), while `CMD` is the default command that is run when giving no argument to a container.
+
+There are two ways to set both: **exec** form and **shell** form. In exec form, the command itself is executed directly, and in shell form it's wrapped with `/bin/sh -c`. Shell form is especially useful when needing to evalueate environment variables.
+
+In the shell form the command is provided as a string without brackets. In the exec form the command and it's arguments are provided as a list (with brackets).
+
+| Dockerfile                                                   | Resulting Command
+|--------------------------------------------------------------|----------------------------------------------------|
+| `ENTRYPOINT /bin/ping -c 3`<br/>`CMD localhost`              | `/bin/sh -c '/bin/ping -c 3' /bin/sh -c localhost` |
+| `ENTRYPOINT ["/bin/ping","-c","3"]`<br/>`CMD localhost`      | `/bin/ping -c 3 /bin/sh -c localhost`              |
+| `ENTRYPOINT /bin/ping -c 3;`<br/>`CMD ["localhost"]`         | `/bin/sh -c '/bin/ping -c 3' localhost`            |
+| `ENTRYPOINT ["/bin/ping","-c","3"]`<br/>`CMD ["localhost"]`  | `/bin/ping -c 3 localhost`                         |
+
+
+### Building images
 
 When you've created a `Dockerfile`, run `docker build <directory> -t <name>`, and Docker will start the build process. The `-t / --tag` flag allows you to name the image with the `image:tag` syntax.
 
 The build process creates multiple layers and intermediate containers during the build process. Layers can work as a cache during build time. If we just edit the last lines of Dockerfile the build command can start from the previous layer and skip straight to the section that has changed.
 
 The intermediate containers are containers created from the image in which the command is executed. Then the changed state is stored into an image.
+
 
 ### Operating inside containers
 

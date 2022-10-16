@@ -1,12 +1,12 @@
-FROM ubuntu:20.04
+FROM alpine:3.16.2
 
 WORKDIR /usr/src/app
 
-RUN apt-get update
-RUN apt-get -y install curl
+RUN apk add curl
 
 COPY script.sh .
 
 RUN chmod +x script.sh
 
-CMD ./script.sh
+# CMD ./script.sh
+ENTRYPOINT [ "./script.sh" ]
