@@ -35,9 +35,24 @@ To remove a container, either run `docker [container] rm <id>`, or let Docker au
 You have to stop a container with `docker containder stop <id>` before being able to remove it.
 If the container is running a process that wont listen to a SIGTERM signal, you can stop it by sending it a SIGKILL signal with `docker kill <id>` (docker will automatically send it after a grace period if `stop` doesn't work).
 
-To launch interact with the container, you need to pass the `-t / --tty` and `-i / --interactive` flags:
-> `docker run -it ubuntu`
+To launch interact with the container, you need to pass the `-t / --tty` and `-i / --interactive` flags: `docker run -it ubuntu`
 
 The `-t` flag creates a pseudo-tty, but it needs to be made interactive with the `-i` flag to make your shell pass STDIN to the container.
 
 To see the output of logs of a container, run `docker logs -f looper` (the `-f / --follow` flag allows you to monitor the log output in realtime).
+
+## Building images
+
+When you've created a `Dockerfile`, run `docker build <directory> -t <name>`, and Docker will start the build process. The `-t / --tag` flag allows you to name the image with the `image:tag` syntax.
+
+The build process creates multiple layers and intermediate containers during the build process. Layers can work as a cache during build time. If we just edit the last lines of Dockerfile the build command can start from the previous layer and skip straight to the section that has changed.
+
+The intermediate containers are containers created from the image in which the command is executed. Then the changed state is stored into an image.
+
+### Operating inside containers
+
+You can copy files from your local filesystem to a running container with the command `docker cp <local-file-path> <container>:<directory>`.
+
+You can view the diff of an altered container with `docker diff <container>`.
+
+To save the made changes (to a new image), run `docker commit <container> <image>`.
