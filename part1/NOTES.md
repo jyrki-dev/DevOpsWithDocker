@@ -5,7 +5,8 @@
 1. Create a Dockerfile
 2. Build an image from it
     2.1. Host the image to a repository
-3. Run the image
+3. Create / run a container from the image
+4. Manage container lifespan
 
 ## Basic commands
 
