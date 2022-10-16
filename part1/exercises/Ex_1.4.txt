@@ -1,0 +1,15 @@
+$ docker run -it -d --name missing-deps ubuntu sh -c 'echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website;'
+$ docker exec -it missing-deps bash
+$ root@c6034777c756:/# apt-get update
+$ root@c6034777c756:/# apt-get install curl
+$ root@c6034777c756:/# exit
+$ docker attach missing-deps
+helsinki.fi
+Searching..
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="https://www.helsinki.fi/">here</a>.</p>
+</body></html>

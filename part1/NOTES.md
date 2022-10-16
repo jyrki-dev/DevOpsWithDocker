@@ -26,8 +26,18 @@
 
 ## Running containers
 
-To launch a container detached from the shell, use `docker container run -d`, leaving the container running in the background.
+To launch a container detached from the shell, use `docker container run -d`, leaving the container running in the background. You can reattach the detached container with `docker attach <id>`. If you want to ensure `<Ctrl-C>` wont stop the container, use the `--no-stdin` flag. Then `<Ctrl-C>` only disconnect your from the containers `STDOUT`.
 
 List all running containers with `docker container ls`.
 
+To remove a container, either run `docker [container] rm <id>`, or let Docker autoclean itself with `docker container prune`. You can also provide `docker run` with the flag `--rm`, which automatically removes the container on exit.
+
 You have to stop a container with `docker containder stop <id>` before being able to remove it.
+If the container is running a process that wont listen to a SIGTERM signal, you can stop it by sending it a SIGKILL signal with `docker kill <id>` (docker will automatically send it after a grace period if `stop` doesn't work).
+
+To launch interact with the container, you need to pass the `-t / --tty` and `-i / --interactive` flags:
+> `docker run -it ubuntu`
+
+The `-t` flag creates a pseudo-tty, but it needs to be made interactive with the `-i` flag to make your shell pass STDIN to the container.
+
+To see the output of logs of a container, run `docker logs -f looper` (the `-f / --follow` flag allows you to monitor the log output in realtime).

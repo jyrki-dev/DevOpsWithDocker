@@ -1,0 +1,16 @@
+$ docker run --name simple-web-service -d --rm devopsdockeruh/simple-web-service:latest
+$ docker ps -a
+CONTAINER ID   IMAGE                                      COMMAND                 CREATED         STATUS         PORTS     NAMES
+bd17eba8540d   devopsdockeruh/simple-web-service:ubuntu   "/usr/src/app/server"   3 minutes ago   Up 3 minutes             simple-web-service
+$ docker exec -it simple-web-servic
+$ root@bd17eba8540d:/usr/src/app# tail ./text.log
+2022-10-16 16:19:15 +0000 UTC
+2022-10-16 16:19:17 +0000 UTC
+2022-10-16 16:19:19 +0000 UTC
+2022-10-16 16:19:21 +0000 UTC
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+2022-10-16 16:19:23 +0000 UTC
+2022-10-16 16:19:25 +0000 UTC
+2022-10-16 16:19:27 +0000 UTC
+$ root@bd17eba8540d:/usr/src/app# exit
+$ docker kill simple-web-service
