@@ -60,7 +60,6 @@ In the shell form the command is provided as a string without brackets. In the e
 | `ENTRYPOINT /bin/ping -c 3;`<br/>`CMD ["localhost"]`         | `/bin/sh -c '/bin/ping -c 3' localhost`            |
 | `ENTRYPOINT ["/bin/ping","-c","3"]`<br/>`CMD ["localhost"]`  | `/bin/ping -c 3 localhost`                         |
 
-
 ### Building images
 
 When you've created a `Dockerfile`, run `docker build <directory> -t <name>`, and Docker will start the build process. The `-t / --tag` flag allows you to name the image with the `image:tag` syntax.
@@ -68,7 +67,6 @@ When you've created a `Dockerfile`, run `docker build <directory> -t <name>`, an
 The build process creates multiple layers and intermediate containers during the build process. Layers can work as a cache during build time. If we just edit the last lines of Dockerfile the build command can start from the previous layer and skip straight to the section that has changed.
 
 The intermediate containers are containers created from the image in which the command is executed. Then the changed state is stored into an image.
-
 
 ### Operating inside containers
 
